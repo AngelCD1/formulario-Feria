@@ -1,0 +1,102 @@
+:root {
+    --img-1: url('https://i.postimg.cc/rFs3TPkB/f1c1bb5c9ca04f99994300d069972d02.png');
+    --img-2: url('https://i.postimg.cc/fTbQpz5M/20241115f90fd67d91434826b552f1878534601f-Xxjwss-S007047-20241115-CBMFN0A001.jpg');
+    --img-3: url('https://i.postimg.cc/cLpqvQS9/ferias-empresariales-que-son.jpg');
+    --img-4: url('https://i.postimg.cc/nhPdrZvc/ces24-6465371-20240112093411.jpg');
+    --img-5: url('https://i.postimg.cc/KvcQ54fB/maxresdefault.jpg');
+    --carousel-duration: 30s;
+}
+
+/* Fondo animado */
+.carousel-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 300%;
+    height: 100%;
+    display: flex;
+    animation: background-slide var(--carousel-duration) linear infinite;
+    z-index: 0;
+}
+
+.carousel-slide {
+    width: 33.333%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.4);
+}
+
+.carousel-slide:nth-child(1) { background-image: var(--img-1); }
+.carousel-slide:nth-child(2) { background-image: var(--img-2); }
+.carousel-slide:nth-child(3) { background-image: var(--img-3); }
+
+@keyframes background-slide {
+    0% { transform: translateX(0); }
+    33.33% { transform: translateX(-33.333%); }
+    66.66% { transform: translateX(-66.666%); }
+    100% { transform: translateX(0); }
+}
+
+/* Campos del formulario */
+.input-field {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    color: white;
+    placeholder-color: #ccc;
+    transition: all 0.3s ease-in-out;
+}
+
+.input-field:focus {
+    border-color: #3B82F6;
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+    outline: none;
+}
+
+/* Select personalizado */
+.select-field {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    color: white;
+    appearance: none;
+    transition: all 0.3s ease-in-out;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.5em 1.5em;
+}
+
+.select-field:focus {
+    border-color: #3B82F6;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Botón principal */
+.submit-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-radius: 9999px;
+    background-color: #3B82F6;
+    color: white;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.submit-btn:hover {
+    background-color: #2563eb;
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.5);
+}
+
+.submit-btn:active {
+    transform: scale(0.97);
+}

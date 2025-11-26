@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | Feria Tecnológica T.G.H </title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#3B82F6',
+                        'dark-bg': '#0F172A',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fuente -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="font-sans min-h-screen antialiased text-white">
+
+    <!-- Carrusel de Fondo -->
+    <div class="carousel-bg">
+        <div class="carousel-slide"></div>
+        <div class="carousel-slide"></div>
+        <div class="carousel-slide"></div>
+    </div>
+
+    <!-- Contenedor del Formulario -->
+    <div class="relative z-10 flex items-center justify-center min-h-screen p-4">
+        <div class="w-full max-w-md bg-white/10 backdrop-blur-md p-8 rounded-xl shadow-2xl border border-white/20">
+            
+            <h1 class="text-3xl font-bold text-center mb-2">Feria TEK</h1>
+            <p class="text-center text-gray-200 mb-6">¡Regístrate para asegurar tu asistencia a la feria!</p>
+
+            <!-- Formulario -->
+            <form id="registration-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+
+                <!-- Datos Personales -->
+                <fieldset class="border border-primary-blue p-4 rounded-lg">
+                    <legend class="px-2 text-lg font-semibold text-primary-blue bg-white/10 rounded">Datos Personales</legend>
+                    
+                    <div>
+                        <label for="name" class="block text-sm font-medium mb-1 text-gray-200">
+                            Nombre Completo <span class="text-red-400">*</span>
+                        </label>
+                        <input type="text" id="name" name="name" required
+                            class="input-field"
+                            placeholder="Tu Nombre Apellido"
+                            oninput="updateButtonText(this.value)">
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium mb-1 text-gray-200">
+                            Correo Electrónico <span class="text-red-400">*</span>
+                        </label>
+                        <input type="email" id="email" name="email" required
+                            class="input-field"
+                            placeholder="JuanPerez@ejemplo.com">
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="w-full sm:w-1/2">
+                            <label for="phone" class="block text-sm font-medium mb-1 text-gray-200">Teléfono</label>
+                            <input type="tel" id="phone" name="phone"
+                                class="input-field"
+                                placeholder="123-456-7890">
+                        </div>
+
+                        <div class="w-full sm:w-1/2">
+                            <label for="country" class="block text-sm font-medium mb-1 text-gray-200">
+                                País <span class="text-red-400">*</span>
+                            </label>
+                            <select id="country" name="country" required class="select-field">
+                                <option value="" disabled selected>Selecciona</option>
+                                <option value="Republica Dominicana" class="bg-dark-bg text-white">Republica Dominicana</option>
+                                <option value="Puerto Rico" class="bg-dark-bg text-white">Puerto Rico</option>
+                                <option value="chile" class="bg-dark-bg text-white">Chile</option>
+                                <option value="otro" class="bg-dark-bg text-white">Otro</option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Intereses -->
+                <fieldset class="border border-primary-blue p-4 rounded-lg">
+                    <legend class="px-2 text-lg font-semibold text-primary-blue bg-white/10 rounded">Intereses</legend>
+                    <div>
+                        <label for="interest" class="block text-sm font-medium mb-1 text-gray-200">
+                            Área Principal de Interés <span class="text-red-400">*</span>
+                        </label>
+                        <select id="interest" name="interest" required class="select-field">
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="ia" class="bg-dark-bg text-white">Inteligencia Artificial</option>
+                            <option value="web3" class="bg-dark-bg text-white">Blockchain y Web3</option>
+                            <option value="ciberseguridad" class="bg-dark-bg text-white">Ciberseguridad</option>
+                            <option value="devops" class="bg-dark-bg text-white">Desarrollo/DevOps</option>
+                            <option value="data" class="bg-dark-bg text-white">Ciencia de Datos</option>
+                        </select>
+                    </div>
+                </fieldset>
+
+                <!-- Botón -->
+                <button type="submit" id="submit-button"
+                    class="submit-btn">
+                    Registrar mi asistencia  [Tu Nombre]
+                </button>
+            </form>
+
+            <!-- Confirmación -->
+            <div id="confirmation-message"
+                class="hidden mt-6 bg-green-500/20 text-green-200 p-4 rounded-lg text-center font-semibold">
+                ¡Registro completado! Te enviamos los detalles a tu correo.
+            </div>
+        </div>
+    </div>
+
+    <!-- parte interativa -->
+    <script>
+        function updateButtonText(name) {
+            const button = document.getElementById('submit-button');
+            const display_name = name.trim() === "" ? "[Tu Nombre]" : name;
+            button.textContent = `Registrar mi asistencia – ${display_name}`;
+        }
+
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const button = document.getElementById('submit-button');
+            const confirmation = document.getElementById('confirmation-message');
+
+            button.disabled = true;
+            button.textContent = 'Enviando...';
+
+            setTimeout(() => {
+                confirmation.classList.remove('hidden');
+                form.classList.add('hidden');
+                button.textContent = '¡Registro exitoso!';
+            }, 800);
+        }
+
+        window.onload = () => updateButtonText('');
+    </script>
+
+</body>
+</html>
